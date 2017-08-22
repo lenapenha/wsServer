@@ -78,7 +78,7 @@ public class CallHandler extends TextWebSocketHandler {
           handleErrorResponse(t, session, "resgisterResponse");
         }
         break;
-      case "$js.cmd.fwd":
+      case "command":
         try {
           call(user, jsonMessage);
         } catch (Throwable t) {
@@ -131,7 +131,7 @@ public class CallHandler extends TextWebSocketHandler {
     }
 
     JsonObject response = new JsonObject();
-    response.addProperty("id", "resgisterResponse");
+    response.addProperty("id", "resgisterResponseWS");
     response.addProperty("response", responseMsg);
     caller.sendMessage(response);
   }
@@ -147,6 +147,7 @@ public class CallHandler extends TextWebSocketHandler {
 
       response.addProperty("id", jsonMessage.get("id").getAsString());
       response.addProperty("from", from);
+      response.addProperty("cmd", jsonMessage.get("cmd").getAsString());
 
       UserSession callee = registry.getByName(to);
       callee.sendMessage(response);
@@ -301,7 +302,8 @@ public class CallHandler extends TextWebSocketHandler {
 
     // Let's send the first message
     JsonObject response = new JsonObject();
-    response.addProperty("msg", "You are now connected to the server. This is the first message.");
+    response.addProperty("id", "connectionResponseWS");
+    response.addProperty("response", "You are now connected to the server.");
     // Let's send the first message
     session.sendMessage(new TextMessage(response.toString()));
   }
