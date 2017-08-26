@@ -75,7 +75,7 @@ public class CallHandler extends TextWebSocketHandler {
         try {
           register(session, jsonMessage);
         } catch (Throwable t) {
-          handleErrorResponse(t, session, "resgisterResponse");
+          handleErrorResponse(t, session, "registerResponse");
         }
         break;
       case "command":
