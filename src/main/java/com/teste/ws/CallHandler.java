@@ -81,7 +81,7 @@ public class CallHandler extends TextWebSocketHandler {
       case "command":
       case  "response" :
         try {
-          call(user, jsonMessage);
+          forwardMessage(user, jsonMessage);
         } catch (Throwable t) {
           handleErrorResponse(t, session, "callResponse");
         }
@@ -137,22 +137,18 @@ public class CallHandler extends TextWebSocketHandler {
     caller.sendMessage(response);
   }
 
-  private void call(UserSession caller, JsonObject jsonMessage) throws IOException {
-    String to = jsonMessage.get("to").getAsString();
-    String from = jsonMessage.get("from").getAsString();
+  private void forwardMessage(UserSession caller, JsonObject message) throws IOException {
+    String to = message.get("to").getAsString();
+    String from = message.get("from").getAsString();
     JsonObject response = new JsonObject();
 
     if (registry.exists(to)) {
-//      caller.setSdpOffer(jsonMessage.getAsJsonPrimitive("sdpOffer").getAsString());
-      caller.setCallingTo(to);
-
-      response.addProperty("id", jsonMessage.get("id").getAsString());
+      response.addProperty("id", message.get("id").getAsString());
       response.addProperty("from", from);
-      response.addProperty("message", jsonMessage.get("cmd").getAsString());
+      response.addProperty("message", message.get("message").getAsString());
 
       UserSession callee = registry.getByName(to);
       callee.sendMessage(response);
-//      callee.setCallingFrom(from);
     } else {
       response.addProperty("id", "callResponse");
       response.addProperty("response", "rejected: user '" + to + "' is not registered");
