@@ -25,3 +25,7 @@ nbdist/
 src/main/resources/db/
 src/main/resources/static/
 src/main/resources/templates/
+mem.log
+mem.properties
+mem.script
+mem.tmp/

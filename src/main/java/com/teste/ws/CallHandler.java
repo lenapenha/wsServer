@@ -79,6 +79,7 @@ public class CallHandler extends TextWebSocketHandler {
         }
         break;
       case "command":
+      case  "response" :
         try {
           call(user, jsonMessage);
         } catch (Throwable t) {
@@ -131,7 +132,7 @@ public class CallHandler extends TextWebSocketHandler {
     }
 
     JsonObject response = new JsonObject();
-    response.addProperty("id", "resgisterResponseWS");
+    response.addProperty("id", "registerResponseWS");
     response.addProperty("response", responseMsg);
     caller.sendMessage(response);
   }
@@ -147,7 +148,7 @@ public class CallHandler extends TextWebSocketHandler {
 
       response.addProperty("id", jsonMessage.get("id").getAsString());
       response.addProperty("from", from);
-      response.addProperty("cmd", jsonMessage.get("cmd").getAsString());
+      response.addProperty("message", jsonMessage.get("cmd").getAsString());
 
       UserSession callee = registry.getByName(to);
       callee.sendMessage(response);
