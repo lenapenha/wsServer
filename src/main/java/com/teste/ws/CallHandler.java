@@ -29,6 +29,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 //import org.kurento.client.EventListener;
@@ -79,26 +80,14 @@ public class CallHandler extends TextWebSocketHandler {
         }
         break;
       case "command":
-      case  "response" :
+      case "response":
+      case "refused":
         try {
           forwardMessage(user, jsonMessage);
         } catch (Throwable t) {
-          handleErrorResponse(t, session, "callResponse");
+          handleErrorResponse(t, session, "refused");
         }
         break;
-//      case "incomingCallResponse":
-//        incomingCallResponse(user, jsonMessage);
-//        break;
-//      case "onIceCandidate": {
-//        JsonObject candidate = jsonMessage.get("candidate").getAsJsonObject();
-//        if (user != null) {
-//          IceCandidate cand =
-//              new IceCandidate(candidate.get("candidate").getAsString(), candidate.get("sdpMid")
-//                  .getAsString(), candidate.get("sdpMLineIndex").getAsInt());
-//          user.addCandidate(cand);
-//        }
-//        break;
-//      }
 //      case "stop":
 //        stop(session);
 //        break;
@@ -145,13 +134,18 @@ public class CallHandler extends TextWebSocketHandler {
     if (registry.exists(to)) {
       response.addProperty("id", message.get("id").getAsString());
       response.addProperty("from", from);
+      response.addProperty("to", to);
       response.addProperty("message", message.get("message").getAsString());
 
       UserSession callee = registry.getByName(to);
+      if(Objects.equals(to, "Rasp") || Objects.equals(from, "Rasp")){
+        UserSession callee1 = registry.getByName("Rasp.");
+        callee1.sendMessage(response);
+      }
       callee.sendMessage(response);
     } else {
-      response.addProperty("id", "callResponse");
-      response.addProperty("response", "rejected: user '" + to + "' is not registered");
+      response.addProperty("id", "refused");
+      response.addProperty("message", "rejected: user '" + to + "' is not registered");
 
       caller.sendMessage(response);
     }
