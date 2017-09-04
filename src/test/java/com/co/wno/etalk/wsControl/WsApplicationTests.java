@@ -1,4 +1,4 @@
-package com.teste.ws;
+package com.co.wno.etalk.wsControl;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

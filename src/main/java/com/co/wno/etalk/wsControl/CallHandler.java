@@ -15,7 +15,7 @@
  *
  */
 
-package com.teste.ws;
+package com.co.wno.etalk.wsControl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,7 +30,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 
 //import org.kurento.client.EventListener;
 //import org.kurento.client.IceCandidate;

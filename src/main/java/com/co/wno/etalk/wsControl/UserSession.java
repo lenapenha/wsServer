@@ -15,7 +15,7 @@
  *
  */
 
-package com.teste.ws;
+package com.co.wno.etalk.wsControl;
 
 import com.google.gson.JsonObject;
 //import org.kurento.client.IceCandidate;
@@ -26,8 +26,6 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * User session.

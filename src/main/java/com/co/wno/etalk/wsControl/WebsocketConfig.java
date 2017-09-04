@@ -1,4 +1,4 @@
-package com.teste.ws;
+package com.co.wno.etalk.wsControl;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;

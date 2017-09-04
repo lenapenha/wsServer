@@ -15,7 +15,7 @@
  *
  */
 
-package com.teste.ws;
+package com.co.wno.etalk.wsControl;
 
 import org.springframework.web.socket.WebSocketSession;
 

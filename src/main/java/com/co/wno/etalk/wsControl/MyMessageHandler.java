@@ -1,4 +1,4 @@
-package com.teste.ws;
+package com.co.wno.etalk.wsControl;
 
 import com.google.gson.JsonObject;
 import org.springframework.web.socket.CloseStatus;

@@ -1,4 +1,4 @@
-package com.teste.ws;
+package com.co.wno.etalk.wsControl;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
